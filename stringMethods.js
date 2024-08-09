@@ -203,50 +203,55 @@ let inputData =
 ]
 
 //Task 1
-// let oneArray = inputData.map((data) => {
-//     const {first_name, last_name} = data;
-//     return first_name + ' ' +  last_name;
-// })
-// console.log(oneArray)
+let newArray = inputData.map((data) => {
+    const {first_name, last_name} = data;
+    return first_name + ' ' +  last_name;
+})
+console.log(newArray)
 
 //Task 2
-let dupe = {}
-let unique = {}
+let uniqueDomains = new Set();
 let twoArray = inputData.map((data) => {
     const {email} = data;
-    domain =  email.split("@")
-    domain = domain[1].split(".")
-    return domain[0]
-})
-console.log(twoArray)
+    let domain = email.split("@")[1].split(".")[0];
+    
+    // Add to Set only if it's not already present
+    if (!uniqueDomains.has(domain)) {
+        uniqueDomains.add(domain);
+    }
+    
+    return domain;
+}).filter(domain => uniqueDomains.has(domain)); // Filter based on unique domains
+
+console.log(Array.from(uniqueDomains));
 
 //Task 3
-// let genders = {}
-// inputData.forEach((data) => {
-//     data.gender in genders ? genders[data.gender]++ : genders[data.gender] = 1;
-// })
-// console.log(genders)
+let genders = {}
+inputData.forEach((data) => {
+    data.gender in genders ? genders[data.gender]++ : genders[data.gender] = 1;
+})
+console.log(genders)
 
 //Task 4
-// function filterIP(users, start, end) {
-//     const startIP = start.split('.').join('');
-//     const endIP = end.split('.').join('');
+function filterIP(users, start, end) {
+    const startIP = start.split('.').join('');
+    const endIP = end.split('.').join('');
 
-//     return users.filter(user => {
-//         const userIP = user.ip_address.split('.').join('');
+    return users.filter(user => {
+        const userIP = user.ip_address.split('.').join('');
 
-//         if (parseInt(userIP) >= parseInt(startIP) && parseInt(userIP) <= parseInt(endIP)) {
-//             return true;
-//         }
-//         return false;
-//     });
-// }
-// const filterUsers = filterIP(inputData, '7.202.9.201', '233.181.12.27');
-// console.log(filterUsers);
+        if (parseInt(userIP) >= parseInt(startIP) && parseInt(userIP) <= parseInt(endIP)) {
+            return true;
+        }
+        return false;
+    });
+}
+const filterUsers = filterIP(inputData, '183.202.9.201', '233.181.12.27');
+console.log(filterUsers);
 
 // Task 5
-// let oneArray = inputData.map((data) => {
-//     const {first_name, last_name} = data;
-//     return first_name + ' ' + last_name + ' (' + first_name[0] + '' +  last_name[0] + ')';
-// })
-// console.log(oneArray)
+let oneArray = inputData.map((data) => {
+    const {first_name, last_name} = data;
+    return first_name + ' ' + last_name + ' (' + first_name[0] + '' +  last_name[0] + ')';
+})
+console.log(oneArray)
